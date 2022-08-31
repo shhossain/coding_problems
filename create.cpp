@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <direct.h>
+#include <vector>
 using namespace std;
 
 // map for language extensions
@@ -109,7 +110,17 @@ void create_project(string project_name, string url = "", string language = "cpp
     ofstream file(file_path);
     if (language == "cpp" || language == "c")
     {
-        file << "int main(){}" << endl;
+        string main_function = "int main()\n{\n\n\treturn 0;\n}";
+        string headers = ""; // if cpp add iostream and using namespace std otherwise add stdio.h
+        if (language == "cpp")
+        {
+            headers = "#include <iostream>\nusing namespace std;\n\n\n\n";
+        }
+        else
+        {
+            headers = "#include <stdio.h>\n\n\n\n";
+        }
+        file << headers << main_function;
     }
     file.close();
 
@@ -146,6 +157,24 @@ int main()
     {
         language = "cpp";
     }
-    create_project(problem_name, url, language);
+    // check if lanugages is separated by comma
+    if (language.find(",") != string::npos)
+    {
+        vector<string> languages;
+        stringstream ss(language);
+        string token;
+        while (getline(ss, token, ','))
+        {
+            languages.push_back(token);
+        }
+        for (auto const &x : languages)
+        {
+            create_project(problem_name, url, x);
+        }
+    }
+    else
+    {
+        create_project(problem_name, url, language);
+    }
     return 0;
 }
