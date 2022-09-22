@@ -1,39 +1,40 @@
+// n = input()
+// cards = list(map(int, input().split()))
+// sereja = 0
+// dima = 0
+// for i in range(int(n)):
+//     if i % 2 == 0:
+//         max_num = max(cards[0], cards[-1])
+//         sereja += max_num
+//         cards.remove(max_num)
+//     else:
+//         max_num = max(cards[0], cards[-1])
+//         dima += max_num
+//         cards.remove(max_num)
+// print(sereja, dima)
+
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
+int main() {
 	int n;
 	cin >> n;
 	vector<int> cards(n);
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++) {
 		cin >> cards[i];
-	// sort array in descending order
-	sort(cards.begin(), cards.end(), greater<int>());
-	// sorted array in descending order
-	cout << "Sorted array in descending order: ";
-	for (int i = 0; i < n; i++)
-		cout << cards[i] << " ";
-
-	int sereja = 0, dima = 0;
-	bool sereja_turn = true;
-	bool dima_turn = false;
-
-	for (int i = 0; i < n; i++)
-	{
-		if (sereja_turn == true)
-		{
-			sereja += cards[i];
-			sereja_turn = false;
-			dima_turn = true;
-		}
-		else if (dima_turn == true)
-		{
-			dima += cards[i];
-			dima_turn = false;
-			sereja_turn = true;
+	}
+	int sereja = 0;
+	int dima = 0;
+	for (int i = 0; i < n; i++) {
+		if (i % 2 == 0) {
+			int max_num = max(cards[0], cards[cards.size() - 1]);
+			sereja += max_num;
+			cards.erase(remove(cards.begin(), cards.end(), max_num), cards.end());
+		} else {
+			int max_num = max(cards[0], cards[cards.size() - 1]);
+			dima += max_num;
+			cards.erase(remove(cards.begin(), cards.end(), max_num), cards.end());
 		}
 	}
-	cout << sereja << " " << dima;
-	return 0;
+	cout << sereja << " " << dima << endl;
 }
