@@ -1,0 +1,8 @@
+{
+"cmd": ["py","F:/Code/clones/coding_problems/run.py","${file}"],
+"file_patterns": ["*.py","*.cpp"],
+"shell":true,
+"working_dir":"$file_path",
+"target": "ansi_color_build",
+ "syntax": "Packages/ANSIescape/ANSI.sublime-syntax"
+}
