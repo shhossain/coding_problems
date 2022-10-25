@@ -7,6 +7,7 @@ import termcolor
 import json
 import re
 import threading
+from difflib import Differ
 
 
 def cprint(*texts, color='green'):
@@ -103,12 +104,39 @@ class Run:
         self.config(self.recent_file, self.file_path)
 
     def match_output(self, output, expected_output):
-        txt = "========== Expected Output =========="
-        for o, e in zip(output.splitlines(), expected_output.splitlines()):
+        olines = output.splitlines()
+        elines = expected_output.splitlines()
+
+        # remove empty lines
+        olines = [line for line in olines if line]
+        elines = [line for line in elines if line]
+
+        if len(olines) != len(elines):
+            return False
+
+        for o, e in zip(olines, elines):
             # o, e = o.strip(), e.strip()
             if o != e:
                 return False
         return True
+
+    def get_diffrences(self, output, expected_output):
+        d = Differ()
+        diff = d.compare(output.splitlines(), expected_output.splitlines())
+        # print diff if matched green otherwise red
+        for line in diff:
+            if line.startswith(' '):
+                cprint(line, color='blue')
+            elif line.startswith('-'):
+                cprint(line, color='red')
+            elif line.startswith('+'):
+                cprint(line, color='green')
+
+    def diff(self, str_output, eoutput):
+        t = threading.Thread(target=self.get_diffrences, args=(
+            str_output, eoutput), daemon=True)
+        t.start()
+
 
     def run_py(self):
         cmd = f'python {self.file_path}'
@@ -140,6 +168,8 @@ class Run:
                 cprint("[+] Output matched", color='green')
             else:
                 cprint("[-] Output not matched", color='red')
+                self.diff(str_output, eoutput)
+
 
     def run_cpp(self):
         build_folder = os.path.join(self.run_folder, 'build')
@@ -183,6 +213,7 @@ class Run:
                 cprint("[+] Output matched", color='green')
             else:
                 cprint("[-] Output not matched", color='red')
+                self.diff(str_output, eoutput)
 
 
 if __name__ == "__main__":
