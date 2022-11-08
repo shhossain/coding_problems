@@ -1,20 +1,17 @@
 3
-5
-abab
-ab
-abc
-abacb
-c
+8 7
+4 3 3 1 1 4 5 9
+1
+10
+50
+14
+15
+22
+30
+4 1
+1 2 3 4
 3
-x
-xx
-xxx
-8
-codeforc
-es
-codes
-cod
-forc
-forces
-e
-code
+1 2
+5
+4
+6

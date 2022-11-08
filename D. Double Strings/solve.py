@@ -18,6 +18,7 @@ for _ in range(int(input())):
 			x,y = a[i][:j],a[i][j:]
 			if m[x] != -1 and m[y] != -1:
 				s[i]="1"
+
 	print("".join(s))
 
 
