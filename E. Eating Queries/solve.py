@@ -1,5 +1,3 @@
-
-
 def get_ans(arr:list,t:int,n:int):
 	s = 0
 	e = n - 1
