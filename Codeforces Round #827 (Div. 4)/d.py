@@ -1,33 +1,17 @@
-import math
+from math import gcd
+from collections import defaultdict
 
-mem = {}
-def is_coprime(num1, num2):
-    # store factors of num1 and num2 in mem
-    if num1 not in mem:
-        mem[num1] = get_factors(num1)
-    if num2 not in mem:
-        mem[num2] = get_factors(num2)
-
-def get_factors(num):
-    factors = []
-    for i in range(1, int(math.sqrt(num)) + 1):
-        if num % i == 0:
-            mem[num] = i 
-
-    return factors
-
-def get_highest(a):
-    highest = -1
-    for i in range(len(a)):
-        for j in range(i, len(a)):
-            if is_coprime(a[i], a[j]):
-                highest = max(highest, i + 1 + j + 1)
-
-    return highest
-
-
-t = int(input())
-for i in range(t):
+for i in range(int(input())):
     n = int(input())
-    a = [int(x) for x in input().split()]
-    print(get_highest(a))
+    a = list(map(int, input().split()))
+    m = defaultdict(int)
+
+    for i in range(n):
+        m[a[i]] = i + 1
+
+    ans = -1
+    for i in range(1,1000+1):
+        for j in range(1,1000+1):
+            if m[i] and m[j] and gcd(i,j)==1:
+                ans = max(ans,m[i]+m[j])
+    print(ans)

@@ -1,5 +1,4 @@
 def starting(bstr):
-    # 00100 start is 100
     f = bstr.find("1")
     if f == -1:
         return "0"
