@@ -25,3 +25,6 @@ for _ in range(int(input())):
 	print(ans)
 	
 	
+# Time 1H (approximately)
+# Rating 1100
+# Tutorial Seen
