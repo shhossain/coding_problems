@@ -32,4 +32,5 @@ for _ in range(int(input())):
 		print("NO")
 
 
-# Time taken 1H 2MIN
+# Time taken 1H 2MIN 
+# Rating 1100
