@@ -9,7 +9,6 @@ for _ in range(int(input())):
 	while i >= 0:
 		w = a[i]
 
-
 		o = 0
 		while w >= c:
 			w = w//2
