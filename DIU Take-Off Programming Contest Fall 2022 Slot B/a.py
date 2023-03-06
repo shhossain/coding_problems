@@ -1,0 +1,1 @@
+print("You can not solve a problem until you are asking the right question.")
